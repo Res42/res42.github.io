@@ -1,0 +1,24 @@
+{
+  "name": "res42.github.io",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build"
+  },
+  "dependencies": {
+    "@types/file-saver": "^2.0.7",
+    "file-saver": "^2.0.5",
+    "tailwindcss": "^4.3.2",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.1.4"
+  },
+  "volta": {
+    "node": "26.5.0"
+  }
+}

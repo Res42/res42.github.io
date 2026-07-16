@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@layer base {
+  .header {
+    @apply relative bg-gray-800 after:pointer-events-none after:absolute after:inset-x-0 after:inset-y-0 after:border-y after:border-white/10;
+  }
+
+  .container {
+    @apply mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8;
+  }
+
+  h1 {
+    @apply text-3xl font-extrabold tracking-tight leading-none;
+  }
+
+  h2 {
+    @apply text-2xl font-bold tracking-tight leading-snug;
+  }
+
+  h3 {
+    @apply text-xl font-semibold tracking-tight leading-snug;
+  }
+
+  .link {
+    @apply text-gray-800 font-semibold underline decoration-gray-800/40 decoration-2 underline-offset-4 transition-all duration-200;
+  }
+
+  .link:hover {
+    @apply text-black decoration-black underline-offset-2;
+  }
+
+  .link:focus-visible {
+    @apply outline-none ring-2 ring-gray-800 ring-offset-2 rounded;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-4 py-2 bg-gray-800 text-sm font-medium text-white rounded-md border border-transparent shadow-sm transition-colors duration-200 cursor-pointer;
+  }
+
+  .btn-primary:hover {
+    @apply bg-gray-700;
+  }
+
+  .btn-primary:active {
+    @apply bg-gray-900;
+  }
+
+  .btn-primary:focus-visible {
+    @apply outline-none ring-2 ring-gray-800 ring-offset-2;
+  }
+
+  .btn-primary:disabled {
+    @apply bg-gray-200 text-gray-400 cursor-not-allowed shadow-none;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden wrap-break-word;
+  }
+
+  .card-header {
+    @apply px-6 py-4 border-b border-gray-200 bg-gray-50;
+  }
+  .card-body {
+    @apply p-6;
+  }
+}

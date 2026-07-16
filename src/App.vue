@@ -1,0 +1,96 @@
+<script setup lang="ts">
+import { FileCard, Grid } from '@/components/custom'
+import { Button } from '@/components/ui/button'
+import { Card, CardAction, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Label } from '@/components/ui/label'
+import { saveAs } from 'file-saver'
+import { ref } from 'vue'
+import { transformMakTransactionHistoryToPortfolioPerformance } from './core/mak-to-pp'
+
+const havasdMode = ref(true)
+
+const processMakFiles = async (files: File[]) => {
+  if (!files[0]) {
+    return
+  }
+
+  const csv = await transformMakTransactionHistoryToPortfolioPerformance(files[0], havasdMode.value)
+
+  saveAs(csv, 'transaction.csv')
+}
+</script>
+
+<template>
+  <div class="container mx-auto">
+    <section class="mb-3">
+      <h2 class="mb-3">ÁNYK</h2>
+
+      <Grid>
+        <Card>
+          <CardHeader>
+            <CardTitle>ÁNYK Docker image-ek</CardTitle>
+          </CardHeader>
+          <CardContent></CardContent>
+          <CardAction>
+            <Button variant="link" as-child>
+              <a
+                href="https://github.com/Res42/anyk-docker"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://github.com/Res42/anyk-docker
+              </a>
+            </Button>
+          </CardAction>
+        </Card>
+      </Grid>
+    </section>
+
+    <section class="mb-3">
+      <h2 class="mb-3">Portfolio Performance</h2>
+
+      <Grid>
+        <FileCard id="makToPp" accept=".csv, .xls, .xlsx" @files-changed="processMakFiles">
+          <CardHeader>
+            <CardTitle>MÁK <code>transaction.xls</code> átalakító</CardTitle>
+          </CardHeader>
+
+          <CardContent>
+            <div class="flex items-center justify-center gap-3">
+              <Checkbox id="havasdMode" v-model:model-value="havasdMode" />
+              <Label for="havasdMode">
+                Havasd mód
+
+                <i
+                  class="fa-solid fa-circle-question text-indigo-500"
+                  title="Ha te is használod a https://github.com/havasd/pp-scraper adatait, akkor pipáld be."
+                ></i>
+              </Label>
+            </div>
+          </CardContent>
+        </FileCard>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Magyar ingatlan árak</CardTitle>
+          </CardHeader>
+          <CardContent></CardContent>
+          <CardAction>
+            <Button variant="link" as-child>
+              <a
+                href="https://github.com/Res42/pp-hu-re-scraper"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                https://github.com/Res42/pp-hu-re-scraper
+              </a>
+            </Button>
+          </CardAction>
+        </Card>
+      </Grid>
+    </section>
+  </div>
+</template>
+
+<style scoped></style>

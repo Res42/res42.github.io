@@ -2,10 +2,6 @@
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 
 @layer base {
-  .header {
-    @apply relative bg-gray-800 after:pointer-events-none after:absolute after:inset-x-0 after:inset-y-0 after:border-y after:border-white/10;
-  }
-
   .container {
     @apply mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8;
   }
@@ -23,6 +19,12 @@
   h3,
   .h3 {
     @apply text-xl font-semibold tracking-tight leading-snug;
+  }
+}
+
+@layer components {
+  .header {
+    @apply relative bg-gray-800 after:pointer-events-none after:absolute after:inset-x-0 after:inset-y-0 after:border-y after:border-white/10;
   }
 
   .link {
@@ -56,9 +58,7 @@
   .btn-primary:disabled {
     @apply bg-gray-200 text-gray-400 cursor-not-allowed shadow-none;
   }
-}
 
-@layer components {
   .card {
     @apply bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden wrap-break-word;
   }
@@ -66,7 +66,14 @@
   .card-header {
     @apply px-6 py-4 border-b border-gray-200 bg-gray-50;
   }
+
   .card-body {
     @apply p-6;
+  }
+}
+
+@layer utilities {
+  :not(:defined) {
+    @apply invisible;
   }
 }

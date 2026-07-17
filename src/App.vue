@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { FileCard, Grid } from '@/components/custom'
 import { Button } from '@/components/ui/button'
-import { Card, CardAction, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { PhInfo } from '@phosphor-icons/vue'
 import { saveAs } from 'file-saver'
 import { ref } from 'vue'
 import { transformMakTransactionHistoryToPortfolioPerformance } from './core/mak-to-pp'
@@ -22,7 +24,7 @@ const processMakFiles = async (files: File[]) => {
 </script>
 
 <template>
-  <div class="container mx-auto">
+  <div class="container mx-auto mt-6">
     <section class="mb-3">
       <h2 class="mb-3">ÁNYK</h2>
 
@@ -31,8 +33,7 @@ const processMakFiles = async (files: File[]) => {
           <CardHeader>
             <CardTitle>ÁNYK Docker image-ek</CardTitle>
           </CardHeader>
-          <CardContent></CardContent>
-          <CardAction>
+          <CardContent>
             <Button variant="link" as-child>
               <a
                 href="https://github.com/Res42/anyk-docker"
@@ -42,7 +43,7 @@ const processMakFiles = async (files: File[]) => {
                 https://github.com/Res42/anyk-docker
               </a>
             </Button>
-          </CardAction>
+          </CardContent>
         </Card>
       </Grid>
     </section>
@@ -62,10 +63,25 @@ const processMakFiles = async (files: File[]) => {
               <Label for="havasdMode">
                 Havasd mód
 
-                <i
-                  class="fa-solid fa-circle-question text-indigo-500"
-                  title="Ha te is használod a https://github.com/havasd/pp-scraper adatait, akkor pipáld be."
-                ></i>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <PhInfo :size="24" weight="fill" class="text-primary" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <span>
+                        Ha használod a
+                        <a
+                          href="https://github.com/havasd/pp-scraper"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >https://github.com/havasd/pp-scraper</a
+                        >
+                        adatait, akkor pipáld be.
+                      </span>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </Label>
             </div>
           </CardContent>
@@ -75,8 +91,7 @@ const processMakFiles = async (files: File[]) => {
           <CardHeader>
             <CardTitle>Magyar ingatlan árak</CardTitle>
           </CardHeader>
-          <CardContent></CardContent>
-          <CardAction>
+          <CardContent>
             <Button variant="link" as-child>
               <a
                 href="https://github.com/Res42/pp-hu-re-scraper"
@@ -86,7 +101,7 @@ const processMakFiles = async (files: File[]) => {
                 https://github.com/Res42/pp-hu-re-scraper
               </a>
             </Button>
-          </CardAction>
+          </CardContent>
         </Card>
       </Grid>
     </section>

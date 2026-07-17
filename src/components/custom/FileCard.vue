@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { cn, preventDefaults } from '@/lib/utils'
+import { preventDefaults } from '@/lib/event'
+import { cn } from '@/lib/utils'
 import { ref, type HTMLAttributes, type InputHTMLAttributes } from 'vue'
 import Button from '../ui/button/Button.vue'
 import { Card, CardFooter } from '../ui/card'
@@ -62,7 +63,7 @@ const onFileSelected = (e: Event) => {
     @dragover="onDragOver"
     @dragleave="onDragLeave"
     @drop="onDrop"
-    :class="cn(props.class, isDragging ? 'border-indigo-500 border-dashed' : '')"
+    :class="cn(props.class, isDragging ? 'outline-2 outline-dashed outline-primary' : '')"
   >
     <slot />
     <CardFooter>

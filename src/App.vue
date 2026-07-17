@@ -6,11 +6,11 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { PhInfo } from '@phosphor-icons/vue'
+import { useStorage } from '@vueuse/core'
 import { saveAs } from 'file-saver'
-import { ref } from 'vue'
 import { transformMakTransactionHistoryToPortfolioPerformance } from './core/mak-to-pp'
 
-const havasdMode = ref(true)
+const havasdMode = useStorage('havasdMode', true)
 
 const processMakFiles = async (files: File[]) => {
   if (!files[0]) {
@@ -52,7 +52,11 @@ const processMakFiles = async (files: File[]) => {
       <h2 class="mb-3">Portfolio Performance</h2>
 
       <Grid>
-        <FileCard id="makToPp" accept=".csv, .xls, .xlsx" @files-changed="processMakFiles">
+        <FileCard
+          id="makToPp"
+          :accept="['application/vnd.ms-excel']"
+          @files-changed="processMakFiles"
+        >
           <CardHeader>
             <CardTitle>MÁK <code>transaction.xls</code> átalakító</CardTitle>
           </CardHeader>

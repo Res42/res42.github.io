@@ -1,69 +1,47 @@
 <script setup lang="ts">
-import { preventDefaults } from '@/lib/event'
 import { cn } from '@/lib/utils'
-import { ref, type HTMLAttributes, type InputHTMLAttributes } from 'vue'
-import Button from '../ui/button/Button.vue'
+import { useDropZone } from '@vueuse/core'
+import { ref, useTemplateRef, type HTMLAttributes, type InputHTMLAttributes } from 'vue'
+import { Button } from '../ui/button'
 import { Card, CardFooter } from '../ui/card'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']
   multiple?: InputHTMLAttributes['multiple']
-  accept?: InputHTMLAttributes['accept']
+  accept: string[]
 }>()
 
 const emit = defineEmits<{
   (e: 'files-changed', files: File[]): void
 }>()
 
-const isDragging = ref(false)
-const uploadedFiles = ref<File[]>([])
-
+const dropZoneRef = useTemplateRef<HTMLElement>('dropZoneRef')
 const fileInputRef = ref<HTMLInputElement | null>(null)
 
-const handleFiles = (files: FileList | null | undefined) => {
+const handleFiles = (files: Event | FileList | File[] | null | undefined) => {
+  if (files instanceof Event) {
+    files = (files.target as HTMLInputElement | null)?.files
+  }
+
   if (!files?.length) {
     return
   }
-  uploadedFiles.value = Array.from(files)
-  emit('files-changed', uploadedFiles.value)
+
+  emit('files-changed', Array.from(files))
 }
 
-const onDragEnter = (e: DragEvent) => {
-  preventDefaults(e)
-  isDragging.value = true
-}
-
-const onDragOver = (e: DragEvent) => {
-  preventDefaults(e)
-  isDragging.value = true
-}
-
-const onDragLeave = (e: DragEvent) => {
-  preventDefaults(e)
-  isDragging.value = false
-}
-
-const onDrop = (e: DragEvent) => {
-  preventDefaults(e)
-  isDragging.value = false
-
-  handleFiles(e.dataTransfer?.files)
-}
-
-const onFileSelected = (e: Event) => {
-  const target = e.target as HTMLInputElement
-
-  handleFiles(target.files)
-}
+const { isOverDropZone } = useDropZone(dropZoneRef, {
+  onDrop: handleFiles,
+  dataTypes: props.accept,
+  multiple: !!props.multiple,
+  preventDefaultForUnhandled: true,
+})
 </script>
 
 <template>
   <Card
-    @dragenter="onDragEnter"
-    @dragover="onDragOver"
-    @dragleave="onDragLeave"
-    @drop="onDrop"
-    :class="cn(props.class, isDragging ? 'outline-2 outline-dashed outline-primary' : '')"
+    ref="dropZoneRef"
+    :class="cn(props.class, isOverDropZone ? 'outline-2 outline-dashed outline-primary' : '')"
   >
     <slot />
     <CardFooter>
@@ -71,9 +49,9 @@ const onFileSelected = (e: Event) => {
         type="file"
         ref="fileInputRef"
         class="hidden"
-        :accept="props.accept"
+        :accept="props.accept.join(',')"
         :multiple="props.multiple"
-        @change="onFileSelected"
+        @change="handleFiles"
       />
 
       <Button class="w-full" @click="fileInputRef?.click()">Húzd ide a fájlt</Button>

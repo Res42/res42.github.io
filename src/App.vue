@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { FileCard, Grid } from '@/components/custom'
-import { Button } from '@/components/ui/button'
+import { FileCard, Grid, Link } from '@/components/custom'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
@@ -34,15 +33,9 @@ const processMakFiles = async (files: File[]) => {
             <CardTitle>ÁNYK Docker image-ek</CardTitle>
           </CardHeader>
           <CardContent>
-            <Button variant="link" as-child>
-              <a
-                href="https://github.com/Res42/anyk-docker"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                https://github.com/Res42/anyk-docker
-              </a>
-            </Button>
+            <Link href="https://github.com/Res42/anyk-docker" variant="button" open-in-new-tab>
+              https://github.com/Res42/anyk-docker
+            </Link>
           </CardContent>
         </Card>
       </Grid>
@@ -75,12 +68,9 @@ const processMakFiles = async (files: File[]) => {
                     <TooltipContent>
                       <span>
                         Ha használod a
-                        <a
-                          href="https://github.com/havasd/pp-scraper"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          >https://github.com/havasd/pp-scraper</a
-                        >
+                        <Link href="https://github.com/havasd/pp-scraper" open-in-new-tab>
+                          https://github.com/havasd/pp-scraper
+                        </Link>
                         adatait, akkor pipáld be.
                       </span>
                     </TooltipContent>
@@ -96,15 +86,9 @@ const processMakFiles = async (files: File[]) => {
             <CardTitle>Magyar ingatlan árak</CardTitle>
           </CardHeader>
           <CardContent>
-            <Button variant="link" as-child>
-              <a
-                href="https://github.com/Res42/pp-hu-re-scraper"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                https://github.com/Res42/pp-hu-re-scraper
-              </a>
-            </Button>
+            <Link href="https://github.com/Res42/pp-hu-re-scraper" variant="button" open-in-new-tab>
+              https://github.com/Res42/pp-hu-re-scraper
+            </Link>
           </CardContent>
         </Card>
       </Grid>
